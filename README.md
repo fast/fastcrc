@@ -1,6 +1,4 @@
-# Fast template for developing a new Rust project
-
-Use this repository as a GitHub template to quickly start a new Rust project.
+# fastcrc
 
 ## License
 
