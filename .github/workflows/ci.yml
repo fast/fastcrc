@@ -15,9 +15,9 @@
 name: CI
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 # Concurrency strategy:
 #   github.workflow: distinguish this workflow from others
@@ -46,13 +46,13 @@ jobs:
       - uses: taiki-e/install-action@v2
         with:
           tool: typos-cli,taplo-cli,hawkeye
-      - run: cargo +nightly x lint
+      - run: cargo x lint
 
   test:
     name: Run tests
     strategy:
       matrix:
-        os: [ ubuntu-22.04, macos-14, windows-2022 ]
+        os: [ubuntu-22.04, macos-14, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
