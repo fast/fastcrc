@@ -24,6 +24,7 @@ repository.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+digest = { version = "0.10.7" }
 
 [lints]
 workspace = true
