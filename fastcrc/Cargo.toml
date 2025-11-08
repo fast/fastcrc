@@ -24,10 +24,10 @@ repository.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-digest = { version = "=0.10.7" }
+digest = { version = "0.10.7" }
 
 [dev-dependencies]
-divan = { version = "=0.1.21" }
+divan = { version = "0.1.21" }
 
 [[bench]]
 name = "throughput"
