@@ -89,9 +89,29 @@ pub fn crc32(data: &[u8]) -> u32 {
 mod tests {
     use super::*;
 
+    /// Test vectors sourced from the RevEng CRC Catalogue
+    /// (http://reveng.sourceforge.net/crc-catalogue/) which is distributed
+    /// as public domain data.
+    const IEEE_VECTORS: &[(&[u8], u32)] = &[
+        (b"", 0x0000_0000),
+        (b"123456789", 0xCBF4_3926),
+        (b"The quick brown fox jumps over the lazy dog", 0x414F_A339),
+    ];
+
     #[test]
     fn crc32_known_value() {
-        let checksum = crc32(b"123456789");
-        assert_eq!(checksum, 0xCBF4_3926);
+        for &(input, expected) in IEEE_VECTORS {
+            assert_eq!(crc32(input), expected, "input: {:?}", input);
+        }
+    }
+
+    #[test]
+    fn crc32_streaming_matches_one_shot() {
+        let data = b"The quick brown fox jumps over the lazy dog";
+        let mut digest = Crc32::new();
+        for chunk in data.chunks(5) {
+            digest.update(chunk);
+        }
+        assert_eq!(digest.finalize_u32(), crc32(data));
     }
 }
