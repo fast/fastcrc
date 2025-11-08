@@ -14,12 +14,10 @@
 
 //! FastCRC provides CRC implementations under a single crate.
 //!
-//! The crate is currently structured as two layers:
-//! - [`core`] hosts reusable engines, parameter descriptions, and future shared utilities.
-//! - [`crc32`] contains concrete CRC32 variants plus ergonomic helpers.
-//!
-//! Top-level re-exports make the most common types available directly from the
-//! crate root for convenience.
+//! The crate is structured in layers: [`core`] hosts reusable engines and
+//! algorithm descriptions, while algorithm-specific modules such as [`crc32`]
+//! and [`crc32c`] expose ergonomic digest types. The crate root re-exports the
+//! most common types so users can depend on `fastcrc` alone.
 
 #![deny(unsafe_code)]
 
