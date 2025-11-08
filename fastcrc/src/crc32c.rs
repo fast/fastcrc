@@ -89,9 +89,29 @@ pub fn crc32c(data: &[u8]) -> u32 {
 mod tests {
     use super::*;
 
+    /// Test vectors derived from the RevEng CRC Catalogue
+    /// (http://reveng.sourceforge.net/crc-catalogue/), released into the
+    /// public domain.
+    const CASTAGNOLI_VECTORS: &[(&[u8], u32)] = &[
+        (b"", 0x0000_0000),
+        (b"123456789", 0xE306_9283),
+        (b"The quick brown fox jumps over the lazy dog", 0x2262_0404),
+    ];
+
     #[test]
     fn crc32c_known_value() {
-        let checksum = crc32c(b"123456789");
-        assert_eq!(checksum, 0xE306_9283);
+        for &(input, expected) in CASTAGNOLI_VECTORS {
+            assert_eq!(crc32c(input), expected, "input: {:?}", input);
+        }
+    }
+
+    #[test]
+    fn crc32c_streaming_matches_one_shot() {
+        let data = b"The quick brown fox jumps over the lazy dog";
+        let mut digest = Crc32c::new();
+        for chunk in data.chunks(7) {
+            digest.update(chunk);
+        }
+        assert_eq!(digest.finalize_u32(), crc32c(data));
     }
 }

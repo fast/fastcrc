@@ -80,7 +80,6 @@ impl CommandLint {
         run_command(make_format_cmd(self.fix));
         run_command(make_taplo_cmd(self.fix));
         run_command(make_typos_cmd());
-        run_command(make_hawkeye_cmd(self.fix));
     }
 }
 
@@ -169,16 +168,16 @@ fn make_clippy_cmd(fix: bool) -> StdCommand {
     cmd
 }
 
-fn make_hawkeye_cmd(fix: bool) -> StdCommand {
-    ensure_installed("hawkeye", "hawkeye");
-    let mut cmd = find_command("hawkeye");
-    if fix {
-        cmd.args(["format", "--fail-if-updated=false"]);
-    } else {
-        cmd.args(["check"]);
-    }
-    cmd
-}
+// fn make_hawkeye_cmd(fix: bool) -> StdCommand {
+//     ensure_installed("hawkeye", "hawkeye");
+//     let mut cmd = find_command("hawkeye");
+//     if fix {
+//         cmd.args(["format", "--fail-if-updated=false"]);
+//     } else {
+//         cmd.args(["check"]);
+//     }
+//     cmd
+// }
 
 fn make_typos_cmd() -> StdCommand {
     ensure_installed("typos", "typos-cli");
