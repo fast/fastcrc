@@ -30,8 +30,8 @@ digest = { version = "0.10.7" }
 divan = { version = "0.1.21" }
 
 [[bench]]
-name = "throughput"
 harness = false
+name = "throughput"
 
 [lints]
 workspace = true
